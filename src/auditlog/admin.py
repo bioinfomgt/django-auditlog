@@ -20,5 +20,19 @@ class LogEntryAdmin(admin.ModelAdmin, LogEntryAdminMixin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+    def get_actions(self, request):
+        actions = super(LogEntryAdmin, self).get_actions(request)
+        del actions["delete_selected"]
+        return actions
+
+    def save_model(self, request, obj, form, change):
+        pass
+
+    def delete_model(self, request, obj):
+        pass
+
+    def save_related(self, request, form, formsets, change):
+        pass
+
 
 admin.site.register(LogEntry, LogEntryAdmin)
