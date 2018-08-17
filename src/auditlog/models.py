@@ -165,12 +165,16 @@ class LogEntry(models.Model):
         UPDATE = 1
         DELETE = 2
         READ = 3
+        AUTH = 4
+        RENEW = 5
 
         choices = (
             (CREATE, _("create")),
             (UPDATE, _("update")),
             (DELETE, _("delete")),
             (READ, _("read")),
+            (AUTH, _("authenticate")),
+            (RENEW, _("renew")),
         )
 
     content_type = models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE, related_name='+', verbose_name=_("content type"))
@@ -201,6 +205,10 @@ class LogEntry(models.Model):
             fstring = _("Deleted {repr:s}")
         elif self.action == self.Action.READ:
             fstring = _("Read {repr:s}")
+        elif self.action == self.Action.AUTH:
+            fstring = _("Authenticated {repr:s}")
+        elif self.action == self.Action.RENEW:
+            fstring = _("Renewed token {repr:s}")
         else:
             fstring = _("Logged {repr:s}")
 
