@@ -164,11 +164,13 @@ class LogEntry(models.Model):
         CREATE = 0
         UPDATE = 1
         DELETE = 2
+        READ = 3
 
         choices = (
             (CREATE, _("create")),
             (UPDATE, _("update")),
             (DELETE, _("delete")),
+            (READ, _("read")),
         )
 
     content_type = models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE, related_name='+', verbose_name=_("content type"))
@@ -197,6 +199,8 @@ class LogEntry(models.Model):
             fstring = _("Updated {repr:s}")
         elif self.action == self.Action.DELETE:
             fstring = _("Deleted {repr:s}")
+        elif self.action == self.Action.READ:
+            fstring = _("Read {repr:s}")
         else:
             fstring = _("Logged {repr:s}")
 
