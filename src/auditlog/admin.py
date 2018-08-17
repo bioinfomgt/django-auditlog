@@ -14,5 +14,11 @@ class LogEntryAdmin(admin.ModelAdmin, LogEntryAdminMixin):
         ('Changes', {'fields': ['action', 'msg']}),
     ]
 
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 admin.site.register(LogEntry, LogEntryAdmin)
